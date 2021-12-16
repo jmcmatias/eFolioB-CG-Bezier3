@@ -1,0 +1,69 @@
+<!-- 
+    efolioB - Bezier3 
+    Jorge Matias 1901087   14/12/2021
+-->
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>CG e-Folio B 2021</title>
+
+    <link rel="stylesheet" href="./style/style.css">
+
+    <script type="module" src='./src/scene.mjs'></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">
+            <p>E-fólio B - Computação Gráfica 2021 - Jorge Matias - 1901807 </p>
+            <div class="controls">
+                <h3>Controlos:<br><br>
+
+
+                    'x' - pressionar a tecla quando o ponteiro do rato estiver por cima do "pixel"<br>
+                    pretendido para o selecionar, após a seleção do segundo pixel o algoritmo irá <br>
+                    desenhar a linha raster (a amarelo) e a linha ideal (a preto) entre esses dois<br>"pixeis"<br><br>
+
+                    'backpace' - pressionar a tecla para reiniciar o algoritmo <br><br>
+
+                    'botão direito do rato' - movimentar o plano nos 3 eixos <br><br>
+
+                    'botão esquerdo do rato' - rodar o plano em torno da origem <br><br>
+
+                    'scroll do rato cima/baixo' - Zoom In/Out
+                </h3>
+            </div>
+        </div>
+        <div class="datainputwrapper">
+            <div class="dataInputWrapper">
+
+                <p style="margin: 5px 0px; padding-left: 0px;">Opacidade do display raster</p>
+                <div class="dataInput">
+                    <h3>Valor da opacidade entre 0 e 1</h3>
+                    <input id="rasterDisplayOpacity" type="number" step="0.01" value="0.4" min="0" max="1" pattern="[0.00-1.00]{3}"
+                        title="Valor da opacidade do tabuleiro, entre 0 e 1">
+                    <input type="button" value="Alterar" onclick="changeDisplayRasterOpacity()">
+                </div>
+            </div>
+        </div>
+        <div class="datainputwrapper">
+            <div class="dataInputWrapper">
+
+                <p style="margin: 5px 0px; padding-left: 0px;">Tamanho do display raster</p>
+                <div class="dataInput">
+                    <h3 style="margin-top: 10px;">Número de 'pixeis' relativos á origem <br> para cada um dos lados da
+                        grelha</h3>
+                    <input id="rasterDisplaySize" type="number" value="10" min="1" max="100" pattern="[1-50]{3}"
+                        title="Número de 'pixeis' &#013relativos á origem para&#013cada um dos lados da grelha">
+                    <input type="button" value="Alterar" onclick="changeDisplayRasterSize()">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
