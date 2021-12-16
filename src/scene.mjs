@@ -70,31 +70,19 @@ function init() {
     document.body.appendChild(renderer.domElement);
     // scene 
     scene = new THREE.Scene();
+
     // camera
     camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 1, 1000);
     camera.position.set(0, 0, 20);
-    //camera.lookAt(scene.position);
 
     // controls 
     controls = new OrbitControls(camera, renderer.domElement);
 
-    // ambient 
-    const lightTop = new THREE.DirectionalLight(0xffffff, 1, 1000);
-    const lightBot = new THREE.DirectionalLight(0xffffff, 1, 1000);
-
-    lightTop.position.set(0, 0, 100); //
-    lightTop.castShadow = true;
-
-    lightBot.position.set(0, 0, -100);
-    lightBot.castShadow = true;
-    scene.add(lightTop);
-    scene.add(lightBot);
+    getLights();
 
     const size = 20;
     const divisions = 10;
 
-    //const gridHelper = new THREE.GridHelper(size, divisions);
-    //scene.add(gridHelper);
 
     // Desenha os eixos 
     getAxes();
@@ -107,6 +95,24 @@ function init() {
 }
 // EventListener que devolve a posição do rato quando este se move com as coordenadas normalizadas e chama a função onMouseMove
 document.body.addEventListener('mousemove', onMouseMove, false);
+
+function getCamera(){
+
+}
+
+function getLights(){
+        // ambient 
+        const lightTop = new THREE.DirectionalLight(0xffffff, 1, 1000);
+        const lightBot = new THREE.DirectionalLight(0xffffff, 1, 1000);
+    
+        lightTop.position.set(0, 0, 100); //
+        lightTop.castShadow = true;
+    
+        lightBot.position.set(0, 0, -100);
+        lightBot.castShadow = true;
+        scene.add(lightTop);
+        scene.add(lightBot);
+}
 
 // Função que irá receber um callback com a ultima posição do rato x e y
 function onMouseMove(event) {
@@ -174,10 +180,12 @@ function ballDeselected() {
     if (intersects.length > 0) {                               // Se existir alguma interseção
         newXY = intersects[0].point;
         C.position.x = newXY.x;
+        C.userData.lastPosition.x = C.position.x;
         C.position.y = newXY.y;
+        C.userData.lastPosition.y = C.position.y;
     }else{
-        C.position.x = C.userData.startPosition.x;
-        C.position.y = C.userData.startPosition.y;
+        C.position.x = C.userData.lastPosition.x;
+        C.position.y = C.userData.lastPosition.y;
     }
     
     bSelected.selected = false;
@@ -249,8 +257,6 @@ function onKeyDown(event) {
             updateCoordenates();
         }
 
-
-
     }
 
     if (keyName == 'x') {               // se a tecla pressionada for 'x'       
@@ -265,7 +271,9 @@ function onKeyDown(event) {
 // Função que reinicia todo o processo do algoritmo (para quando backspace é pressiondo ou quando é redimensionado o display raster)
 function resetScene() {
     scene.remove.apply(scene, scene.children);  // Remove todos os filhos da scene (apaga tudo)
+    pixels = [];
     balls = [];
+    getLights();
     getBalls();                                 // desenha as bolas iniciais
     getAxes();                                  // chama o desenho dos eixos 
     getDisplayRaster();                         // Chama o desenho do display raster
