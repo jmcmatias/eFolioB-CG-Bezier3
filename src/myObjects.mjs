@@ -59,8 +59,10 @@ function createSphere (C){
     sphere.position.z=C.position.z;
 
     let sp = sphere.userData;
-    sp.startposition = new THREE.Vector3();
+    sp.startPosition = new THREE.Vector3();
+    sp.lastPosition = new THREE.Vector3();
     sp.startPosition = C.startPosition;
+    sp.lastPosition = C.startPosition;
     
     return sphere;
 }
@@ -93,9 +95,7 @@ function createBezier3(balls){
         clearcoat: 1.0,
         clearcoatRoughness:0.1,
         metalness: 0.9,
-        roughness:0.5,
-        //normalMap: texture,
-        //tnormalScale: new THREE.Vector2(0.15,0.15)        
+        roughness:0.5,     
     } );
     const bezier3Curve = new THREE.Mesh ( geometry, material );
     bezier3Curve.receiveShadow = true;
@@ -108,7 +108,7 @@ function randomRGBAColor(){
     let max=255;
     let rand = Math.random;
     let round = Math.round;
-
+    console.log('rgba(' + round(rand()*max) +','+ round(rand()*max) +','+ round(rand()*max) +','+1+')');
     return 'rgba(' + round(rand()*max) +','+ round(rand()*max) +','+ round(rand()*max) +','+1+')';
 }
 
