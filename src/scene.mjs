@@ -7,15 +7,15 @@ import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js'
 import { displayRaster, createSphere, createBezier3 } from './myObjects.mjs';
 
-let renderer, scene, camera, controls, axes;  //Variaveis para funcionamento do THREE.js 
+let renderer, scene, camera, controls;  //Variaveis para funcionamento do THREE.js 
 
 let pixels = [];              //Array que irá receber os pixeis do displayRaster
 const axisLength = 10;        //Comprimento dos eixos
+let axes = new THREE.AxesHelper(axisLength);  // inicializa os eixos com comprimento axisLength
 var balls = [];              //array que irá receber as bolas 
 let rasterDisplaySize = 10;   //tamanho da grelha inicial de pixeis, poderá mudar a pedido do utilizador
-let displayRasterGroup = new THREE.Group();
+let rasterDisplayOpacity = 0.4;
 const pixelSize = 1;          //tamanho do pixel irão manter-se sempre a 1
-
 const tileColor = 0xffff00;            //0xffff00 - amarelo
 const gridColor1 = 0xff8000;            //0xff8000 - laranja
 const gridColor2 = 0x408080;            //0x408080 - azulado
@@ -91,27 +91,27 @@ function init() {
     // Desenha as bolas 
     getBalls();
 
- 
+
 }
 // EventListener que devolve a posição do rato quando este se move com as coordenadas normalizadas e chama a função onMouseMove
 document.body.addEventListener('mousemove', onMouseMove, false);
 
-function getCamera(){
+function getCamera() {
 
 }
 
-function getLights(){
-        // ambient 
-        const lightTop = new THREE.DirectionalLight(0xffffff, 1, 1000);
-        const lightBot = new THREE.DirectionalLight(0xffffff, 1, 1000);
-    
-        lightTop.position.set(0, 0, 100); //
-        lightTop.castShadow = true;
-    
-        lightBot.position.set(0, 0, -100);
-        lightBot.castShadow = true;
-        scene.add(lightTop);
-        scene.add(lightBot);
+function getLights() {
+    // ambient 
+    const lightTop = new THREE.DirectionalLight(0xffffff, 1, 1000);
+    const lightBot = new THREE.DirectionalLight(0xffffff, 1, 1000);
+
+    lightTop.position.set(0, 0, 100); //
+    lightTop.castShadow = true;
+
+    lightBot.position.set(0, 0, -100);
+    lightBot.castShadow = true;
+    scene.add(lightTop);
+    scene.add(lightBot);
 }
 
 // Função que irá receber um callback com a ultima posição do rato x e y
@@ -150,17 +150,15 @@ function getBalls() {
 
 //Função que insere o display raster na scene
 function getDisplayRaster() {
-
     pixels = displayRaster(rasterDisplaySize, pixelSize, gridColor1, gridColor2); // Coloca os objetos (mesh) pixeis no array pixels
     pixels.every(pixel => scene.add(pixel)); // desenha cada um deles na scene*/
-    //scene.add(pixels);
 }
 
 // Função que vai inserir os eixos na scene
 function getAxes() {
     axes = new THREE.AxesHelper(axisLength);  // inicializa os eixos com comprimento axisLength
     axes.position.z = 0.05      // coloca os eixos um pouco acima do display raster para que se vejam bem
-    scene.add(axes);            // adiciona á scene
+    scene.add(axes);            // adiciona na scene
 }
 
 function ballSelected(i) {
@@ -183,11 +181,11 @@ function ballDeselected() {
         C.userData.lastPosition.x = C.position.x;
         C.position.y = newXY.y;
         C.userData.lastPosition.y = C.position.y;
-    }else{
+    } else {
         C.position.x = C.userData.lastPosition.x;
         C.position.y = C.userData.lastPosition.y;
     }
-    
+
     bSelected.selected = false;
     balls[bSelected.ball].material.transparent = true;
     removeCoordenates();
@@ -244,9 +242,9 @@ function onKeyDown(event) {
     }
 
     if (bSelected.selected == true) {
-        if (event.keyCode == 32)      // Caso a tecla pressionada seja o space e esteja uma bola seleccionada
+        if (event.keyCode == 32){      // Caso a tecla pressionada seja o space e esteja uma bola seleccionada
             ballDeselected();
-
+        }
         if (keyName == 'w') {
             balls[bSelected.ball].position.z = balls[bSelected.ball].position.z + 0.1;
             updateCoordenates();
@@ -288,9 +286,39 @@ window.changeDisplayRasterSize = () => {
 }
 
 window.changeDisplayRasterOpacity = () => {
-    let opacity = document.getElementById("rasterDisplayOpacity").value;
-    console.log(opacity)
-    pixels.every(pixel => pixel.material.opacity=opacity);
+
+
+    rasterDisplayOpacity = document.getElementById("rasterDisplayOpacity").value;
+    pixels.every(pixel => pixel.material.opacity = rasterDisplayOpacity);
+
+}
+
+window.changeDisplayRasterVisibility = () => {
+    let checked = document.getElementById("rasterDisplayVisibility").checked;
+    if (checked) {
+        for (const pixel of pixels)
+            pixel.visible = true;
+    } else
+        for (const pixel of pixels)
+            pixel.visible = false;
+}
+
+window.changeBallVisibility = () => {
+    let checked = document.getElementById("ballVisibility").checked;
+    if (checked) {
+        for (const ball of balls)
+            ball.visible = true;
+    } else
+        for (const ball of balls)
+            ball.visible = false;
+}
+
+window.changeAxesVisibility = () => {
+    let checked = document.getElementById("axesVisility").checked;
+    if (checked) {
+        axes.visible = true;
+    } else
+        axes.visible = false;
 }
 
 // Função recursiva que mantém a scene atualizada com o renderer

@@ -20,11 +20,18 @@ div.header{
 
 }
 
-div.header:hover{
+.header:hover{
     background-color: rgba(255, 255, 255, 0.733);
     color:black;
     animation-name: fadeIn;
     animation-duration: 0.8s;
+
+}
+
+.header:hover + .controls{
+    animation-name: fadeOut;
+    animation-duration: 1.5s;
+    color:transparent;
 }
 
 .title{
@@ -36,23 +43,32 @@ div.header:hover{
 }
 
 .controls{
+    position: fixed;
+    display: block;
+    background-color: transparent;
     pointer-events: none;
-    margin-top: 10%;
+    bottom:0;
+    left:0;
+    padding: 10px;
+    color: rgba(255, 254, 254, 0.568);
+    animation-name: fadeIn;
+    animation-duration: 0.8s;
+
 }
 
 .datainputwrapper{  
     display: flex;
     flex-direction:row;
     width:auto;
-    margin-left: auto;
-    margin-right: 5%;
+    margin:auto;
 }
 
 .dataInputWrapper{
     display: flex;
     flex-wrap: wrap;
     flex-direction:column;
-    width:max-content;
+    margin-left: auto;
+    width:auto;
     height: 100%;
 
 }
@@ -68,27 +84,15 @@ div.header:hover{
 }
 
 #coord {
-    position: absolute;
-	bottom: 5%;
-    left: 30%;
+    position: fixed;
+	bottom: 0%;
+    right: 0%;
 	width: 100%;
-	text-align: center;
-	z-index: 100;
+    padding: 10px;
+	text-align: right;
 	display:block;
     color: azure;
 }
-
-#newCoord{
-    position: absolute;
-	bottom: 10%;
-    left: 30%;
-	width: 100%;
-	text-align: center;
-	z-index: 100;
-	display:block;
-    color: azure;
-}
-
 
 body {
     margin: 0px;
@@ -115,6 +119,19 @@ input[type="button"] {
     margin-left: 5px;
 }
 
+input[type="checkbox"] {
+    background-color: lightgray;
+    height: 25;
+    width: auto;
+    align-self: center;
+    padding: 5px;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    margin-left: 5px;
+    outline: 0px;
+}
+
 p {
     font-size: larger;
     padding-left: 5;
@@ -128,12 +145,12 @@ h3 {
     font-size: small;
     padding:0px;
     min-height:20px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 
 
-/* Keyframes para a animação de fain e fade out*/
+/* Keyframes para a animação de fade in e fade out*/
 @keyframes fadeIn {
     0% { opacity: 0; }
     10% { opacity: 0.1; }
