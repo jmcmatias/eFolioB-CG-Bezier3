@@ -68,7 +68,6 @@ function createSphere (C){
 }
 
 
-
 function createBezier3(balls){
 
     class bezier3CurvePath extends THREE.Curve {
@@ -86,7 +85,6 @@ function createBezier3(balls){
             return optionalTarget.set( b3.x, b3.y, b3.z).multiplyScalar( this.scale );
         }
     }
-    
     
     const path = new bezier3CurvePath(1);
     const geometry = new THREE.TubeGeometry( path, 60, 0.35, 16, false);
