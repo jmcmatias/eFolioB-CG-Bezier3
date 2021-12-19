@@ -4,7 +4,7 @@
 */
 
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
-import scene from './scene.mjs';
+//import scene from './scene.mjs';
 import { bezier3 } from '../bezier3.mjs';
 
 

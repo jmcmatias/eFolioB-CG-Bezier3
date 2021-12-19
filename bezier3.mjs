@@ -3,7 +3,6 @@
     Jorge Matias 1901087   14/12/2021
 */
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
-//import * as THREE from './three.js'
 
 function bezier3 ({c0,c1,c2,c3,t}){
     let output = new THREE.Vector3();
