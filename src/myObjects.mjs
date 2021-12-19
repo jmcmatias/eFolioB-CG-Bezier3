@@ -108,7 +108,6 @@ function randomRGBAColor(){
     let max=255;
     let rand = Math.random;
     let round = Math.round;
-    console.log('rgba(' + round(rand()*max) +','+ round(rand()*max) +','+ round(rand()*max) +','+1+')');
     return 'rgba(' + round(rand()*max) +','+ round(rand()*max) +','+ round(rand()*max) +','+1+')';
 }
 

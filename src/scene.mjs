@@ -6,6 +6,7 @@
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.124.0/examples/jsm/controls/OrbitControls.js'
 import { displayRaster, createSphere, createBezier3 } from './myObjects.mjs';
+import { bSelected, C0, C1, C2, C3 } from './ballsConfig.mjs'
 
 let renderer, scene, camera, controls;  //Variaveis para funcionamento do THREE.js 
 
@@ -21,7 +22,7 @@ const gridColor1 = 0xff8000;            //0xff8000 - laranja
 const gridColor2 = 0x408080;            //0x408080 - azulado
 //const intersectedPixelColor = 0xff0000; //0xff0000 - Vermelho
 
-let bSelected = {
+/* let bSelected = {
     selected: false,
     ball: 0
 };
@@ -51,7 +52,7 @@ let C3 = {
     position: new THREE.Vector3(4, -4, 0),
     startPosition: new THREE.Vector3(4, -4, 0)
 
-}
+} */
 
 const raycaster = new THREE.Raycaster(); // cria uma instancia de raycaster 
 let mouse = new THREE.Vector2();         // cria um vector2 para receber as posições do rato devolvidas por onMouseMove 
