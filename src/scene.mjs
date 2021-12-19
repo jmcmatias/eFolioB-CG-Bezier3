@@ -6,7 +6,7 @@
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 import { displayRaster, createSphere, createBezier3 } from './myObjects.mjs';
 import { bSelected, C0, C1, C2, C3, balls } from './ballsConfig.mjs'
-import { renderer, camera, axes, raycaster, scene, lightTop, lightBot } from './sceneConfig.mjs'
+import { renderer, camera, axes, raycaster, scene, directionalLight } from './sceneConfig.mjs'
 
 // Configurações do Tabuleiro
 let rasterDisplaySize = 10;   //tamanho da grelha inicial de pixeis, poderá mudar a pedido do utilizador
@@ -36,8 +36,6 @@ function init() {
     getBalls();
 }
 
-
-
 // Função que insere o renderer no DOM, criação do node canvas
 function getRenderer() {
     document.body.appendChild(renderer.domElement);
@@ -45,11 +43,10 @@ function getRenderer() {
 
 // Função que insere as luzes na scene
 function getLights() {
-    scene.add(lightTop);
-    scene.add(lightBot);
+    scene.add(directionalLight.top);
+    scene.add(directionalLight.bottom);
+    scene.add(directionalLight.front);
 }
-
-
 
 function getBalls() {
     // Insere as bolas criadas nos pontos C0,C1,C2,C3 no array balls
@@ -108,9 +105,7 @@ function ballDeselected() {
 function showCoordenates() {
     let C = balls[bSelected.ball];
     let coordDiv = document.createElement('div');
-
     document.body.appendChild(coordDiv);
-
     coordDiv.innerHTML = '<span id="coord">Coordenadas de C' + bSelected.ball + ' (' + C.position.x.toFixed(2) + ',' + C.position.y.toFixed(2) + ',' + C.position.z.toFixed(2) + ')</span>';
 
 }
@@ -137,11 +132,6 @@ function intersectionPoint() {
         mouseIntersects = intersects[0].point;                 // Guarda o ponto em mouseIntersects
     }
 }
-
-
-
-
-
 
 // Função que reinicia todo o processo do algoritmo (para quando backspace é pressiondo ou quando é redimensionado o display raster)
 function resetScene() {
@@ -205,10 +195,12 @@ function animate() {
     window.requestAnimationFrame(animate);
 }
 
-//////////////////////////////////////////
-// EVENT HANDLERS E FUNÇÕES DEPENDENTES //
-//////////////////////////////////////////
+            //////////////////////////////////////////
+            // EVENT HANDLERS E FUNÇÕES DEPENDENTES //
+            //////////////////////////////////////////
 
+
+// CONTROLO DO MOUSE MOVE
 // EventListener que devolve a posição do rato quando este se move com as coordenadas normalizadas e chama a função onMouseMove
 document.body.addEventListener('mousemove', onMouseMove, false);
 
@@ -233,6 +225,8 @@ function onMouseMove(event) {
     // console.log(mouse); // DEBUG only
 }
 
+
+// CONTROLO DE TECLADO
 // EventListener que "escuta por teclas pressionadas" e chama a função keydown
 document.body.addEventListener('keydown', onKeyDown, false);
 
@@ -285,5 +279,3 @@ function resize() {
 
 
 export default scene;   // exporta a scene
-
-

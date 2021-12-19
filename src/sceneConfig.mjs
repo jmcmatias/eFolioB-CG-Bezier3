@@ -25,16 +25,24 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // Lights
 
     // Directional
-const lightTop = new THREE.DirectionalLight(0xffffff, 1, 1000);
-const lightBot = new THREE.DirectionalLight(0xffffff, 1, 1000);
+const directionalLight = {
+    top: new THREE.DirectionalLight(0xffffff, 1, 1000),
+    bottom: new THREE.DirectionalLight(0xffffff, 1, 1000),
+    front: new THREE.DirectionalLight(0xffffff, 1, 1000)
+};
 
-lightTop.position.set(0, 0, 100); //
-lightTop.castShadow = true;
 
-lightBot.position.set(0, 0, -100);
-lightBot.castShadow = true;
+directionalLight.top.position.set(0, 0, 50); //
+directionalLight.top.castShadow = true;
+
+directionalLight.bottom.position.set(0, 0, -50);
+directionalLight.bottom.castShadow = true;
+
+directionalLight.front.position.set(0, -50, 0);
+directionalLight.front.castShadow = true;
 
 // Scene
 let scene = new THREE.Scene();
 
-export { renderer, camera, raycaster, axes, controls, scene, lightTop, lightBot };
+
+export { renderer, camera, raycaster, axes, controls, scene, directionalLight };
