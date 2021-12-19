@@ -44,5 +44,30 @@ directionalLight.front.castShadow = true;
 // Scene
 let scene = new THREE.Scene();
 
+// Função que insere o renderer no DOM, criação do node canvas
+function getRenderer() {
+    document.body.appendChild(renderer.domElement);
+}
 
-export { renderer, camera, raycaster, axes, controls, scene, directionalLight };
+// Função recursiva que mantém a scene atualizada com o renderer
+function animate() {
+    //controls.update(); 
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(animate);
+}
+
+// Função que tem como argumento uma função que contem a inicialização da cena base
+function resetScene(baseScene) {            
+    scene.remove.apply(scene, scene.children);  // Remove todos os filhos da scene (apaga tudo)
+    baseScene();                                // Repõe a cena base
+}
+
+// Função que muda o aspect ratio da janela e atualiza o tamanho desta no renderer
+// Acrescentei esta funcionalidade para que não fiquem zonas brancas ao redimensionar a janela do browser
+function resize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+export { renderer, camera, raycaster, axes, controls, scene, directionalLight, animate, getRenderer, resize, resetScene };

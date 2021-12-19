@@ -1,8 +1,7 @@
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 
-var balls = [];              //array que irá receber as bolas 
 
-var bSelected = {
+let bSelected = {
     selected: false,
     ball: 0
 };
@@ -34,4 +33,4 @@ let C3 = {
 
 };
 
-export {balls, bSelected, C0, C1, C2, C3};
+export { bSelected, C0, C1, C2, C3 };
