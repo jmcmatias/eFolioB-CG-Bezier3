@@ -4,10 +4,10 @@
 */
 
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
-import { displayRaster, createSphere, createBezier3 } from './myObjects.mjs';
-
+import { displayRaster, createSphere, createTubeBezier3 } from './myObjects.mjs';
+// objectos para controlo das bolas
 import { bSelected, C0, C1, C2, C3 } from './ballsConfig.mjs'
-// 
+// settings e funções do three.js
 import { camera,
          axes,
          raycaster,
@@ -245,24 +245,24 @@ function onKeyDown(event) {
                                                 // (forçar o inteiro evita inconsistencias de tipo pois o keyName é uma string ) 
     }
 
-    if (bSelected.selected == true) {
-        if (event.keyCode == 32){      // Caso a tecla pressionada seja o space e esteja uma bola seleccionada
+    if (bSelected.selected == true) {  // se estiver uma bola seleccionada
+        if (event.keyCode == 32){      // Caso a tecla pressionada seja o space 
             ballDeselected();
         }
-        if (keyName == 'w') {
+        if (keyName == 'w') {          // Caso a tecla pressionada seja w soma 0.1 unidades a coordenada z
             balls[bSelected.ball].position.z = balls[bSelected.ball].position.z + 0.1;
-            updateCoordenates();
+            updateCoordenates();       // e atualiza a informação das coordenadas no ecrã
         }
 
-        if (keyName == 's') {
+        if (keyName == 's') {          // Caso a tecla pressionada seja s retira 0.1 unidades a coordenada z
             balls[bSelected.ball].position.z = balls[bSelected.ball].position.z - 0.1;
-            updateCoordenates();
+            updateCoordenates();       // e atualiza a informação das coordenadas no ecrã
         }
     }
 
-    if (keyName == 'x') {               // se a tecla pressionada for 'x'       
-        let bezierCurve3 = createBezier3(balls);
-        scene.add(bezierCurve3);
+    if (keyName == 'x') {              // Caso a tecla pressionada seja x desenha a curva bexier
+        let bezierCurve3 = createTubeBezier3(balls);    // cria o tubo bezier
+        scene.add(bezierCurve3);       // insere na scene
     }
 }
 

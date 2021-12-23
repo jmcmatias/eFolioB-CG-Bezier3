@@ -7,11 +7,11 @@ import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 function bezier3 ({c0,c1,c2,c3,t}){
     let output = new THREE.Vector3();
 
-    output.x=calcPoli(c0.x,c1.x,c2.x,c3.x,t);
-    output.y=calcPoli(c0.y,c1.y,c2.y,c3.y,t);
-    output.z=calcPoli(c0.z,c1.z,c2.z,c3.z,t);
+    output.x=calcPoli(c0.x,c1.x,c2.x,c3.x,t); // preenche a coordenada x da curva no instante t
+    output.y=calcPoli(c0.y,c1.y,c2.y,c3.y,t); // preenche a coordenada y da curva no instante t
+    output.z=calcPoli(c0.z,c1.z,c2.z,c3.z,t); // preenche a coordenada z da curva no instante t
 
-    return output;
+    return output;                            // retorna o ponto no instante t em THREE.Vector3
 }
 
 // Função para calcular coordenada de C0 ((1-t)^3)*(componente (x,y,z) de c0) 
@@ -34,7 +34,7 @@ function calcC3 (c3,t){
     return Math.pow(t,3)*c3;
 }
 
-// Função para resolver o polimomio
+// Função para resolver o polinomio da curva f(t) 
 function calcPoli (c0,c1,c2,c3,t){
     return calcC0(c0,t)+calcC1(c1,t)+calcC2(c2,t)+calcC3(c3,t);
 }

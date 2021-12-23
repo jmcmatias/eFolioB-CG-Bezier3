@@ -1,9 +1,9 @@
 import * as THREE from 'https://unpkg.com/three@0.124.0/build/three.module.js';
 
-
+// Objecto para controlo da bola selecionada
 let bSelected = {
-    selected: false,
-    ball: 0
+    selected: false,    // Booleano que controla se existe alguma bola selecionada
+    ball: 0             // numero da bola selecionada 0 (C0),1(C1),2(C2) ou 3(C3)
 };
 
 // Objetos que para representar as configurações dos pontos
